@@ -27,5 +27,20 @@ def auth_token(base_url,default_headers):
     assert response.status_code == 200
     return response.json()["access_token"]
 
+@pytest.fixture
+def admin_token(base_url,default_headers):
+     
+    payload ={
+        "username": "admin",
+        "password": "admin123"
+    }
+
+    response = requests.post(f"{base_url}/login",
+    json = payload,
+    headers = default_headers)
+
+    assert response.status_code == 200
+    return response.json()["access_token"]   
+
 
 

@@ -23,3 +23,4 @@ def test_response_is_not_json_for_html_endpoint(base_url):
 
     with pytest.raises(ValueError):
         response.json()  
+

@@ -17,3 +17,4 @@ def test_idempotent_resource_creation(base_url,auth_token):
     # print ("check123",response1.status_code)
     assert response1.status_code == response2.status_code
     assert response1.json()["resource_id"] == response2.json()["resource_id"]
+    

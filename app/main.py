@@ -1,7 +1,9 @@
 # app/main.py
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI,Request, Header, HTTPException
 import random
 import time
+import uuid
+
 
 from app.state import (
     USERS,
@@ -152,3 +154,13 @@ def unstable():
         raise HTTPException(status_code=500, detail="Random failure")
     time.sleep(random.uniform(0.1, 0.5))
     return {"status": "ok"}
+
+
+
+@app.middleware("http")
+async def add_correlation_id(request: Request, call_next):
+    correlation_id = request.headers.get("X-Correlation-ID") or str(uuid.uuid4())
+
+    response = await call_next(request)
+    response.headers["X-Correlation-ID"] = correlation_id
+    return response

@@ -1,3 +1,4 @@
+import uuid
 import pytest;
 import requests
 
@@ -43,4 +44,5 @@ def admin_token(base_url,default_headers):
     return response.json()["access_token"]   
 
 
-
+def generate_idempotency_key():
+    return str(uuid.uuid4())
